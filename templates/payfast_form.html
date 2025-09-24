@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting to PayFast Sandbox...</title>
+</head>
+<body onload="document.forms['payfast_form'].submit()">
+    <p>Redirecting to PayFast Sandbox for payment. You will see all available payment options.</p>
+    <form name="payfast_form" method="post" action="{{ payfast_url }}">
+        {% for key, value in data.items() %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+
+        <!-- Force PayFast to show all payment methods -->
+        <input type="hidden" name="email_address" value="{{ data['email_address'] }}">
+        <input type="hidden" name="payment_method" value=""> <!-- empty = show all -->
+
+        <noscript>
+            <input type="submit" value="Pay Now">
+        </noscript>
+    </form>
+</body>
+</html>
